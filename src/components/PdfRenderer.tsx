@@ -29,7 +29,11 @@ const PdfRenderer =({url}:PdfRendererProps)=>{
     const [currPage,setCurrPage] = useState<number>(1);
     const [scale,useScale] = useState<number>(1)
     const [rotation,setRotation] = useState<number>(0);
-    const [renderedScale , setRenderedScale] = useState<number|null>(null)
+    const [renderedScale , setRenderedScale] = useState<number|null>(null);
+
+    const scaling = (x:number)=>{
+        useScale(x)
+    }
 
     const isLoading = renderedScale!==scale
 
@@ -111,16 +115,16 @@ const PdfRenderer =({url}:PdfRendererProps)=>{
 
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
-                        <DropdownMenuItem onSelect={()=> useScale(1)}>
+                        <DropdownMenuItem onSelect={()=>scaling(1)}>
                             100%
                         </DropdownMenuItem>
-                        <DropdownMenuItem onSelect={()=> useScale(1.5)}>
+                        <DropdownMenuItem onSelect={()=> scaling(1.5)}>
                             150%
                         </DropdownMenuItem>
-                        <DropdownMenuItem onSelect={()=> useScale(2)}>
+                        <DropdownMenuItem onSelect={()=> scaling(2)}>
                             200%
                         </DropdownMenuItem>
-                        <DropdownMenuItem onSelect={()=> useScale(2.5)}>
+                        <DropdownMenuItem onSelect={()=> scaling(2.5)}>
                             250%
                         </DropdownMenuItem>
                     </DropdownMenuContent>
