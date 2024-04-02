@@ -71,7 +71,7 @@ const UploadDropZone = ()=>{
             }
             
             setUplaodProgress(100);
-            clearInterval(progressInterval);
+         
             startPolling({key})
         }} multiple={false} >
             {({getRootProps,getInputProps,acceptedFiles})=>(
