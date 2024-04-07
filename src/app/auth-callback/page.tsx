@@ -1,13 +1,21 @@
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { Suspense } from "react";
 import { trpc } from "../_trpc/client";
-import { useSearchParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
 
 const Page = () => {
     const router = useRouter();
+    const [isMounted, setIsMounted] = useState(false);
 
-    // Wrap useSearchParams() in a Suspense boundary
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    if (!isMounted) {
+        return null;
+    }
+
     return (
         <Suspense fallback={<div>Loading...</div>}>
             <PageContent router={router} />
@@ -15,7 +23,7 @@ const Page = () => {
     );
 }
 
-const PageContent = ({ router }:{router:any}) => {
+const PageContent = ({ router }) => {
     const searchParams = useSearchParams();
     const origin = searchParams.get('origin')
 
