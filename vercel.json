@@ -1,16 +1,1 @@
-{
-    "build": {
-      "env": {
-        "PRISMA_CLIENT_ENGINE_TYPE": "binary"
-      },
-      "functions": {
-        "api/**/*.js": {
-          "runtime": "nodejs12.x"
-        }
-      },
-      "commands": {
-        "build": "prisma generate && npm run build"
-      }
-    }
-  }
-  
+
