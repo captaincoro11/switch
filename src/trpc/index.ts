@@ -158,7 +158,8 @@ export const appRouter = router({
                     mode:'subscription',
                     payment_method_types:['card'],
                     billing_address_collection:"auto",
-                    metadata:{userId},
+                    metadata:userId,
+
                     line_items:[
                         {
                             price:PLANS.find(
