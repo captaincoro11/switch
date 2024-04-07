@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { Suspense } from "react";
 import { trpc } from "../_trpc/client";
 import { useSearchParams } from "next/navigation";
