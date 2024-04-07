@@ -1,10 +1,21 @@
-"use client"
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/router";
+import { Suspense } from "react";
 import { trpc } from "../_trpc/client";
+import { useSearchParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
 
 const Page = () => {
     const router = useRouter();
+
+    // Wrap useSearchParams() in a Suspense boundary
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <PageContent router={router} />
+        </Suspense>
+    );
+}
+
+const PageContent = ({ router }:{router:any}) => {
     const searchParams = useSearchParams();
     const origin = searchParams.get('origin')
 
@@ -25,6 +36,7 @@ const Page = () => {
         router.push(origin ? `/${origin}` : '/dashboard');
         return null; // Redirecting, no need to render anything else
     }
+
     return (
         <div className="w-full mt-24 flex justify-center ">
             <div className="flex flex-col items-center gap-2">
