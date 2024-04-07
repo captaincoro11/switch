@@ -37,18 +37,21 @@ const onUploadComplete = async ({
  
 
 
-  const createdFile = await db.file.create({
-    data: {
-      key: file.key,
-      name: file.name,
-      userId: metadata.userId,
-      url:file.url,
-      uploadStatus: 'PROCESSING',
-    },
-  })
+  
+   const createdFile =    await db.file.create({
+      data: {
+        key: file.key,
+        name: file.name,
+        userId: metadata.userId,
+        url:file.url,
+        uploadStatus: 'SUCCESS',
+      },
+    });
+    try {
 
-  try {
-    const response = await fetch(file.url)
+    const response = await fetch(
+      file.key
+    )
 
     const blob = await response.blob()
 
@@ -58,16 +61,8 @@ const onUploadComplete = async ({
 
     const pagesAmt = pageLevelDocs.length
 
-   
-
-
-    
-  
-    
-
-    // vectorize and index entire document
     const pinecone = await getPineconeClient()
-    const pineconeIndex = pinecone.Index('switch')
+    const pineconeIndex = pinecone.Index('quill')
 
     const embeddings = new OpenAIEmbeddings({
       openAIApiKey: process.env.OPENAI_API_KEY,
@@ -90,17 +85,25 @@ const onUploadComplete = async ({
         id: createdFile.id,
       },
     })
-  } catch (err) {
-    await db.file.update({
-      data: {
-        uploadStatus: 'SUCCESS',
-      },
-      where: {
-        id: createdFile.id,
-      },
-    })
-  }
+  
+  
+
+
 }
+
+catch(err){
+  console.log(err)
+}
+
+}
+
+  
+
+
+    
+  
+    
+
 
 export const ourFileRouter = {
   freePlanUploader: f({ pdf: { maxFileSize: '4MB' } })
@@ -110,5 +113,6 @@ export const ourFileRouter = {
     .middleware(middleware)
     .onUploadComplete(onUploadComplete),
 } satisfies FileRouter
+
 
 export type OurFileRouter = typeof ourFileRouter

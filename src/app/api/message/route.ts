@@ -4,7 +4,7 @@ import { getPineconeClient } from '@/lib/pinecone'
 import { SendMessageValidator } from '@/lib/Validators/SendMessageValidator'
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
-import { PineconeStore } from '@langchain/pinecone'
+import { PineconeStore } from 'langchain/vectorstores/pinecone'
 import { NextRequest } from 'next/server'
 
 import { OpenAIStream, StreamingTextResponse } from 'ai'
@@ -15,9 +15,9 @@ export const POST = async (req: NextRequest) => {
   const body = await req.json()
 
   const { getUser } = getKindeServerSession()
-  const user = await getUser()
+  const user =await getUser()
 
-  const userId  = user?.id
+  const userId = user?.id
 
   if (!userId)
     return new Response('Unauthorized', { status: 401 })
@@ -116,7 +116,7 @@ export const POST = async (req: NextRequest) => {
   })
 
   const stream = OpenAIStream(response, {
-    async onCompletion(completion:string) {
+    async onCompletion(completion) {
       await db.message.create({
         data: {
           text: completion,
