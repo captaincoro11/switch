@@ -1,4 +1,5 @@
-import { useRouter } from "next/router";
+import { useRouter,useSearchParams } from "next/navigation";
+
 import { useEffect, useState } from "react";
 import { Suspense } from "react";
 import { trpc } from "../_trpc/client";
@@ -23,7 +24,7 @@ const Page = () => {
     );
 }
 
-const PageContent = ({ router }) => {
+const PageContent = ({ router }:{router:any}) => {
     const searchParams = useSearchParams();
     const origin = searchParams.get('origin')
 
