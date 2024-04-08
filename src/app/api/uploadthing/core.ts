@@ -43,14 +43,14 @@ const onUploadComplete = async ({
         key: file.key,
         name: file.name,
         userId: metadata.userId,
-        url: file.key,
+        url: file.url,
         uploadStatus: 'SUCCESS',
       },
     });
     try {
 
     const response = await fetch(
-       file.key
+       file.url
     )
 
     const blob = await response.blob()
