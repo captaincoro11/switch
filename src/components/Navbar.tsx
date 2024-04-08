@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import MaxWidthWrapper from './MaxWidthWrapper'
 import { buttonVariants } from './ui/button'
-import {RegisterLink, LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
+import {RegisterLink, LoginLink, LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import {
   getKindeServerSession,
 } from "@kinde-oss/kinde-auth-nextjs/server";
@@ -77,6 +77,7 @@ const Navbar = async() => {
                   email={user.email ?? ''}
                   imageUrl={user.picture ?? ''}
                 />
+                <LogoutLink>Logout</LogoutLink>
               </>
               )
              } 

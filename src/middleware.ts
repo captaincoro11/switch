@@ -1,7 +1,7 @@
-import { authMiddleware } from "@kinde-oss/kinde-auth-nextjs/server"
+import { authMiddleware } from '@kinde-oss/kinde-auth-nextjs/server'
 
 export const config = {
-    matcher :[]
+  matcher: [],
 }
 
 export default authMiddleware
