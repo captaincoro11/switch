@@ -8,6 +8,7 @@ import {
 
 import { ArrowRight } from 'lucide-react'
 import UserAccountNav from './UserAccountNav';
+import MobileNavbar from './MobileNavbar';
 const Navbar = async() => {
   const { getUser } = getKindeServerSession()
   const user = await getUser()
@@ -21,6 +22,7 @@ const Navbar = async() => {
             className='flex z-40 font-semibold'>
             <span>quill.</span>
           </Link>
+          <MobileNavbar isAuth={!!user} />
 
           
 
